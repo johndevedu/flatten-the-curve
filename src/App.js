@@ -4,8 +4,10 @@ import { getCity } from './helpers/city.helper';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
 import CitiesDropdown from './CitiesDropdown';
+import { saveCookie, getCookie } from './helpers/cookie.helper';
 
-const defaultCity = 'Koreatown'
+const cookieName = 'energycity';
+
 const options = {
   chart: {
     type: 'column'
@@ -22,7 +24,7 @@ const options = {
       },
   },
   title: {
-    text: defaultCity
+    text: ''
   },
   series: [{
     showInLegend: false,  
@@ -37,7 +39,7 @@ const options = {
 
 function App() {
   const [infections, setInfections] = useState(options)
-  const [city, setCity] = useState(defaultCity)
+  const [city, setCity] = useState(getCookie(cookieName) || 'Koreatown')
 
   useEffect(() => {
     const getter = async () => {
@@ -66,6 +68,8 @@ function App() {
       <div style={{textAlign: "center"}}>
         <h1>Flatten the Curve</h1>
         <CitiesDropdown city={city} handleChange={setCity}/>
+        <button onClick={() => saveCookie(cookieName, city)}>Remember</button>
+
         <HighchartsReact
           highcharts={Highcharts}
           options={infections}
