@@ -1,50 +1,73 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { getCities } from './services/api.service'
 import { getCity } from './helpers/city.helper';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
+import CitiesDropdown from './CitiesDropdown';
 
-const city = 'koreatown'
+const defaultCity = 'Koreatown'
 const options = {
+  chart: {
+    type: 'column'
+  },
+  xAxis: {
+    categories: [
+    ],
+    crosshair: true,
+  },
+  yAxis: {
+      min: 0,
+      title: {
+          text: 'Infections'
+      },
+  },
   title: {
-    text: city
+    text: defaultCity
   },
   series: [{
+    showInLegend: false,  
+    name: 'Infections',
     data: [1, 2, 3]
-  }]
+  }],
+  credits: {
+    enabled: false
+  }
 }
 
 
 function App() {
-  const [cities, setCities] = useState([])
-  const [koreatown, setKoreatown] = useState(options)
+  const [infections, setInfections] = useState(options)
+  const [city, setCity] = useState(defaultCity)
 
   useEffect(() => {
     const getter = async () => {
-      const cities = await getCities();
-      setCities(cities);
-      const koreatown = await getCity(city);
+      const {infections, dates} = await getCity(city);
       const newOptions = {
         ...options,
-        series: {
-          ...options.series,
-          data: koreatown
+        series: [{
+          data: infections
+        }],
+        xAxis: {
+          ...options.xAxis,
+          categories: dates
+        }, 
+        title: {
+          text: city
         }
       }
-      setKoreatown(newOptions);
+      setInfections(newOptions);
     }
 
     getter()
-  }, [setCities, setKoreatown])
+  }, [setInfections, city])
 
   return (
     <div className="App">
-  <HighchartsReact
-    highcharts={Highcharts}
-    options={koreatown}
-  />
+      <CitiesDropdown city={city} handleChange={setCity}/>
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={infections}
+      />
     </div>
   );
 }
