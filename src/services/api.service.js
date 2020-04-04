@@ -1,13 +1,15 @@
 import axios from 'axios'
 
+const apiBase = process.env.REACT_APP_API_BASE
+
 export const getCities = async () => {
-  const response = await axios.get('http://localhost:7001/api/cities')
+  const response = await axios.get(`${apiBase}/cities`)
 
   return response.data;
 }
 
 export const getCity = async (city) => {
-  const response = await axios.get(`http://localhost:7001/api/cities/${encodeURIComponent(city)}`)
+  const response = await axios.get(`${apiBase}/cities/${encodeURIComponent(city)}`)
 
   return response.data;
 }
