@@ -27,7 +27,7 @@ const options = {
   series: [{
     showInLegend: false,  
     name: 'Infections',
-    data: [1, 2, 3]
+    data: []
   }],
   credits: {
     enabled: false
@@ -63,11 +63,25 @@ function App() {
 
   return (
     <div className="App">
-      <CitiesDropdown city={city} handleChange={setCity}/>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={infections}
-      />
+      <div style={{textAlign: "center"}}>
+        <h1>Flatten the Curve</h1>
+        <CitiesDropdown city={city} handleChange={setCity}/>
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={infections}
+        />
+      </div>
+
+      <div style={{padding: 15}}>
+        <p>Info</p>
+        <ul>
+          <li>Motivation: wanted to see graphs per each region of Los Angeles but could not find one online</li>
+          <li>Information gathered from <a href="http://www.publichealth.lacounty.gov/media/Coronavirus/">LA County Health</a></li>
+          <li>Will be updated daily</li>
+          <li>Contributions welcome <a href="https://github.com/johndevedu/flatten-the-curve" target="_blank">here</a></li>
+          <li>Comments welcome <a href="https://github.com/johndevedu/flatten-the-curve/issues" target="_blank">here</a></li>
+        </ul>
+      </div>
     </div>
   );
 }
