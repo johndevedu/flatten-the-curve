@@ -13,3 +13,9 @@ export const getCity = async (city) => {
 
   return response.data;
 }
+
+export const getCityMultiple = async (cityList) => {
+  const response = await axios.post(`${apiBase}/cities/multiple`, {list: cityList})
+
+  return response.data;
+}

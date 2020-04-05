@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { getCity } from './helpers/city.helper';
+import { getCityMultiple } from './helpers/city.helper';
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official';
 import CitiesDropdown from './CitiesDropdown';
@@ -39,36 +39,35 @@ const options = {
 
 function App() {
   const [infections, setInfections] = useState(options)
-  const [city, setCity] = useState(getCookie(cookieName) || 'Koreatown')
+  const cookie = getCookie(cookieName)
+  const [selectedCities, setSelectedCities] = useState(cookie ? cookie.split(',') : ['Koreatown'])
 
   useEffect(() => {
     const getter = async () => {
-      const {infections, dates} = await getCity(city);
+      const {seriesCollection, dates} = await getCityMultiple(selectedCities);
       const newOptions = {
         ...options,
-        series: [{
-          data: infections
-        }],
+        series: seriesCollection,
         xAxis: {
           ...options.xAxis,
           categories: dates
         }, 
         title: {
-          text: city
+          text: selectedCities
         }
       }
       setInfections(newOptions);
     }
 
     getter()
-  }, [setInfections, city])
+  }, [setInfections, selectedCities])
 
   return (
     <div className="App">
       <div style={{textAlign: "center"}}>
         <h1>Flatten the Curve</h1>
-        <CitiesDropdown city={city} handleChange={setCity}/>
-        <button onClick={() => saveCookie(cookieName, city)}>Remember</button>
+        <CitiesDropdown city={selectedCities} handleChange={setSelectedCities}/>
+        <button onClick={() => saveCookie(cookieName, selectedCities)}>Remember</button>
 
         <HighchartsReact
           highcharts={Highcharts}
