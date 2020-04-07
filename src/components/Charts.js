@@ -6,7 +6,7 @@ import { Button } from '@material-ui/core'
 export default function Charts() {
   const {state, dispatch} = useContext(ChartContext)
 
-  const charts = state.map((item, index) => <Chart row={index} />)
+  const charts = state.map((item, index) => <Chart row={index} key={index}/>)
 
   return (
     <div>
