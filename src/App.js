@@ -1,90 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
-import { getCityMultiple } from './helpers/city.helper';
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official';
-import CitiesDropdown from './CitiesDropdown';
-import { saveCookie, getCookie } from './helpers/cookie.helper';
+import { ChartProvider } from './providers/ChartProvider'
+import Charts from './components/Charts';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 
-const cookieName = 'energycity';
-
-const options = {
-  chart: {
-    type: 'column'
-  },
-  xAxis: {
-    categories: [
-    ],
-    crosshair: true,
-  },
-  yAxis: {
-      min: 0,
-      title: {
-          text: 'Infections'
-      },
-  },
-  title: {
-    text: ''
-  },
-  series: [{
-    showInLegend: false,  
-    name: 'Infections',
-    data: []
-  }],
-  credits: {
-    enabled: false
+const theme = createMuiTheme({
+  props: {
+    MuiButton: {
+      variant: "contained",
+      size: "small"
+    }
   }
-}
-
+});
 
 function App() {
-  const [infections, setInfections] = useState(options)
-  const cookie = getCookie(cookieName)
-  const [selectedCities, setSelectedCities] = useState(cookie ? cookie.split(',') : ['Koreatown'])
+  // const [additionalCharts, setAdditionalCharts] = useState(0)
 
-  useEffect(() => {
-    const getter = async () => {
-      const {seriesCollection, dates} = await getCityMultiple(selectedCities);
-      const newOptions = {
-        ...options,
-        series: seriesCollection,
-        xAxis: {
-          ...options.xAxis,
-          categories: dates
-        }, 
-        title: {
-          text: selectedCities
-        }
-      }
-      setInfections(newOptions);
-    }
+  // const charts = [<Chart isRememberEnabled={true} key={0} row={0}/>];
 
-    getter()
-  }, [setInfections, selectedCities])
+  // for (let i = 0; i < additionalCharts; i++ ) {
+  //   const index = i+1;
+  //   charts.push(<Chart key={index} row={index}/>)
+  // }
 
   return (
     <div className="App">
-      <div style={{textAlign: "center"}}>
-        <h1>Flatten the Curve</h1>
-        <CitiesDropdown city={selectedCities} handleChange={setSelectedCities}/>
-        <button onClick={() => saveCookie(cookieName, selectedCities)}>Remember</button>
+      <MuiThemeProvider theme={theme}>
+        <div style={{ textAlign: "center" }}>
+          <h1>Flatten the Curve</h1>
+          <ChartProvider>
+            <Charts />
+          </ChartProvider>
 
-        <HighchartsReact
-          highcharts={Highcharts}
-          options={infections}
-        />
-      </div>
+        </div>
 
-      <div style={{padding: 15}}>
-        <p>Info</p>
-        <ul>
-          <li>Motivation: wanted to see graphs per each region of Los Angeles but could not find one online</li>
-          <li>Information gathered from <a href="http://www.publichealth.lacounty.gov/media/Coronavirus/">LA County Health</a></li>
-          <li>Will be updated daily</li>
-          <li>Contributions welcome <a href="https://github.com/johndevedu/flatten-the-curve" target="_blank">here</a></li>
-          <li>Comments welcome <a href="https://github.com/johndevedu/flatten-the-curve/issues" target="_blank">here</a></li>
-        </ul>
-      </div>
+        <div style={{ padding: 15 }}>
+          <p>Info</p>
+          <ul>
+            <li>Motivation: wanted to see graphs per each region of Los Angeles but could not find one online</li>
+            <li>Information gathered from <a href="http://www.publichealth.lacounty.gov/media/Coronavirus/">LA County Health</a></li>
+            <li>Will be updated daily</li>
+            <li>Contributions welcome <a href="https://github.com/johndevedu/flatten-the-curve" target="_blank">here</a></li>
+            <li>Comments welcome <a href="https://github.com/johndevedu/flatten-the-curve/issues" target="_blank">here</a></li>
+          </ul>
+        </div>    
+      </MuiThemeProvider>
     </div>
   );
 }

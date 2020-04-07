@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-    maxWidth: 300,
+    maxWidth: 500,
   },
   chips: {
     display: 'flex',
@@ -33,8 +33,8 @@ const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
     style: {
-      maxHeight: ITEM_HEIGHT * 10 + ITEM_PADDING_TOP,
-      width: 250,
+      maxHeight: ITEM_HEIGHT * 12 + ITEM_PADDING_TOP,
+      width: 500,
     },
   },
 };
@@ -42,7 +42,6 @@ const MenuProps = {
 
 function CitiesDropdown({city: selectedCities, handleChange}) {
   const classes = useStyles();
-  const theme = useTheme();
   
   const [cities, setCities] = useState([])
   // const [city, setCity] = useState('')
