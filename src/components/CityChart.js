@@ -36,15 +36,10 @@ const options = {
 }
 
 
-function Chart({ row }) {
+function CityChart({ row }) {
   const [highchartOptions, setHighchartOptions] = useState(options)
   const { state, dispatch } = useContext(ChartContext)
   const selectedCities = state[row].cities;
-  // const [selectedCities, setSelectedCities] = useState(state[row].cities || ['Koreatown'])
-
-  useEffect(() => {
-
-  }, [])
 
   useEffect(() => {
     const getter = async () => {
@@ -88,12 +83,12 @@ function Chart({ row }) {
           alignItems: 'center'
         }}>
           <span >
-            <Button onClick={onClearCities} style={{marginRight: '10px'}}>Clear cities</Button>
+            <Button onClick={onClearCities} variant='outlined' style={{marginRight: '10px'}}>Clear cities</Button>
             {(row > 0) &&
-              <Button onClick={() => dispatch({
+              <Button color='secondary' onClick={() => dispatch({
                 type: 'deleteChart',
                 row
-              })}>Remove chart</Button>
+              })}>Remove graph</Button>
             }
           </span>
         </div>
@@ -108,4 +103,4 @@ function Chart({ row }) {
   );
 }
 
-export default Chart;
+export default CityChart;

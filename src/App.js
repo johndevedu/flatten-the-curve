@@ -2,15 +2,29 @@ import React from 'react';
 import './App.css';
 import { ChartProvider } from './providers/ChartProvider'
 import Charts from './components/Charts';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme, Typography, AppBar, Toolbar } from '@material-ui/core';
+import { blue, pink } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
   props: {
     MuiButton: {
       variant: "contained",
-      size: "small"
+      size: "small",
+      color: 'primary'
     }
-  }
+  },
+  overrides: {
+    MuiPaper: {
+      root: {
+        margin: '10px',
+        padding: '10px'
+      }
+    }
+  },
+  palette: {
+    primary: blue,
+    secondary: pink,
+  },
 });
 
 function App() {
@@ -24,10 +38,17 @@ function App() {
   // }
 
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor: '#f5f5f5'}}>
       <MuiThemeProvider theme={theme}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h5" >
+              Flatten the Curve
+            </Typography>
+          </Toolbar>
+        </AppBar>
         <div style={{ textAlign: "center" }}>
-          <h1>Flatten the Curve</h1>
+        {/* <Typography gutterBottom variant="h3" component="h2">Flatten the Curve</Typography> */}
           <ChartProvider>
             <Charts />
           </ChartProvider>
@@ -43,7 +64,7 @@ function App() {
             <li>Contributions welcome <a href="https://github.com/johndevedu/flatten-the-curve" target="_blank">here</a></li>
             <li>Comments welcome <a href="https://github.com/johndevedu/flatten-the-curve/issues" target="_blank">here</a></li>
           </ul>
-        </div>    
+        </div>
       </MuiThemeProvider>
     </div>
   );
