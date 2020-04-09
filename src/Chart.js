@@ -19,7 +19,7 @@ const options = {
   yAxis: {
     min: 0,
     title: {
-      text: 'Infections'
+      text: 'Cases'
     },
   },
   title: {
@@ -27,7 +27,7 @@ const options = {
   },
   series: [{
     showInLegend: false,
-    name: 'Infections',
+    name: 'Cases',
     data: []
   }],
   credits: {
