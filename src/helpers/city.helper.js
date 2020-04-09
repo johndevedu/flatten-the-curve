@@ -1,4 +1,4 @@
-import * as apiService from '../services/api.service'
+import * as apiService from '../services/city.service'
 import moment from 'moment'
 
 export const getCity = async (city) => {

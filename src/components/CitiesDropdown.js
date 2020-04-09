@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCities } from "./services/api.service";
+import { getCities } from "../services/city.service";
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import { ChartContext } from '../providers/ChartProvider'
-import Chart from '../Chart'
+import CityChart from './CityChart'
 import { Button } from '@material-ui/core'
 
 export default function Charts() {
   const {state, dispatch} = useContext(ChartContext)
 
-  const charts = state.map((item, index) => <Chart row={index} />)
+  const charts = state.map((item, index) => <CityChart row={index} />)
 
   return (
     <div>
