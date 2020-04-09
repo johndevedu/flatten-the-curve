@@ -50,8 +50,8 @@ const parseSeries = (originalSeriesCollection, dateRange) => {
 
     let seriesIndex = 0;
     for (let i = 0; i < dateRange.length ; i ++){
-      const seriesDate = series[seriesIndex].date;
-      const infections = series[seriesIndex].infections;
+      const seriesDate = series[seriesIndex] ? series[seriesIndex].date : null;
+      const infections = series[seriesIndex] ? series[seriesIndex].infections : null;
 
       if (seriesIndex === 0 && (seriesDate !== dateRange[i].date)){
         parsedSeries.push(0)
