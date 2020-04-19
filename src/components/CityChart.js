@@ -26,7 +26,6 @@ const options = {
     text: ''
   },
   series: [{
-    showInLegend: false,
     name: 'Cases',
     data: []
   }],
