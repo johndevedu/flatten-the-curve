@@ -9,6 +9,7 @@ export default function Toast(props) {
     onClose = () => {},
     open = false,
     severity = 'success', // Possible severity types: error, warning, info, & success
+    text = 'Success!',
   } = props
 
   function Alert(alertProps) {
@@ -23,7 +24,7 @@ export default function Toast(props) {
       open={open}
     >
       <Alert severity={severity}>
-          Local graph is saved!
+        {text}
       </Alert>
     </Snackbar>
   )

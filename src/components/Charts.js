@@ -34,7 +34,11 @@ export default function Charts() {
         </Typography>
         <CountyChart />
       </Card>
-      <Toast onClose={() => setOpenToast(false)} open={openToast} />
+      <Toast
+        onClose={() => setOpenToast(false)}
+        open={openToast}
+        text='Local graph has been saved saved!'
+      />
     </div>
   )
 }
