@@ -37,7 +37,7 @@ export default function Charts() {
       <Toast
         onClose={() => setOpenToast(false)}
         open={openToast}
-        text='Local graph has been saved saved!'
+        text='Local graph has been saved!'
       />
     </div>
   )
